@@ -1,14 +1,34 @@
 # Laporan Proyek Machine Learning - M Mahfudl Awaludin
 
-## Domain Proyek: Latar Belakang
+## Domain Proyek: 
+**Latar Belakang**
 
-Pada bagian ini, kamu perlu menuliskan latar belakang yang relevan dengan proyek yang diangkat.
+Perkembangan teknologi digital yang pesat telah membuka peluang bagi berbagai sektor industri untuk mengadopsi teknologi berbasis data dalam pengambilan keputusan yang lebih akurat. Salah satu sektor yang paling merasakan dampaknya adalah industri otomotif. Di tengah meningkatnya kebutuhan akan kendaraan yang berkualitas dengan harga yang bersaing, penting bagi produsen dan konsumen untuk memiliki informasi yang jelas dan akurat mengenai harga mobil. Data harga mobil yang transparan dan dapat diakses dengan mudah akan memberikan keuntungan besar bagi semua pihak terkait.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Jelaskan mengapa dan bagaimana masalah tersebut harus diselesaikan
-- Menyertakan hasil riset terkait atau referensi. Referensi yang diberikan harus berasal dari sumber yang kredibel dan author yang jelas.
+Pada saat ini, proses penentuan harga mobil sering kali bersifat subyektif dan dipengaruhi oleh banyak faktor, seperti merek, usia kendaraan, kondisi fisik, serta tren pasar lokal. Hal ini dapat menyebabkan kesulitan bagi pembeli untuk menentukan harga yang wajar atau bagi penjual untuk menetapkan harga yang sesuai dengan nilai pasar. Oleh karena itu, diperlukan analisis data harga mobil yang dapat membantu dalam merumuskan harga yang lebih objektif, transparan, dan terukur.
+
+Data yang tersedia dari sumber-sumber terpercaya, seperti dataset harga mobil yang diperoleh dari Kaggle, memberikan peluang untuk membangun model prediksi harga yang lebih akurat. Dataset ini mencakup berbagai variabel yang relevan, seperti merek mobil, model, tahun pembuatan, dan informasi lainnya yang dapat berpengaruh terhadap harga mobil.
+
+Dengan menggunakan teknik analisis data dan machine learning, kita dapat mengembangkan model prediksi harga yang dapat digunakan untuk membantu pembeli dan penjual dalam menetapkan harga yang wajar. Hal ini penting untuk meningkatkan transparansi pasar dan memudahkan transaksi jual beli kendaraan.
+
+**Mengapa dan Bagaimana Masalah Tersebut Harus Diselesaikan**
+
+Masalah dalam penentuan harga mobil yang tidak objektif dan sering kali dipengaruhi oleh faktor subyektif adalah masalah yang perlu segera diselesaikan. Penetapan harga yang tidak akurat dapat menyebabkan ketidakpuasan dari pembeli maupun penjual. Pembeli dapat merasa tertipu apabila harga yang ditawarkan terlalu tinggi dibandingkan dengan harga pasar, sedangkan penjual dapat merasa kesulitan menjual mobil mereka jika harga yang ditetapkan tidak menarik bagi calon pembeli. Selain itu, ketidakpastian dalam harga juga dapat memperlambat proses transaksi, yang berdampak pada efisiensi pasar secara keseluruhan.
+
+Masalah ini harus diselesaikan dengan cara yang lebih ilmiah dan berbasis data. Untuk itu, penting untuk melakukan analisis harga mobil dengan menggunakan data yang tersedia. Dengan pendekatan berbasis data, kita bisa membangun model prediksi harga yang dapat memberikan rekomendasi harga yang lebih objektif dan terukur. Ini akan memberikan manfaat langsung bagi konsumen dan produsen mobil dalam menilai nilai pasar kendaraan secara lebih tepat dan efisien.
+
+Salah satu solusi yang dapat diterapkan adalah dengan memanfaatkan teknologi machine learning untuk menganalisis dataset harga mobil yang kaya akan variabel yang mempengaruhi harga. Dataset ini sering kali mencakup informasi tentang tahun pembuatan, merek, model, jarak tempuh, kondisi kendaraan, dan lain-lain. Model prediksi harga mobil yang dihasilkan dari analisis data tersebut dapat memperhitungkan faktor-faktor ini secara bersamaan, memberikan estimasi harga yang lebih realistis dan membantu dalam pengambilan keputusan baik bagi penjual maupun pembeli.
+
+**Riset Terkait**
+
+Sebuah studi yang dilakukan oleh Chien et al. (2020) mengungkapkan bahwa penggunaan model machine learning dalam prediksi harga mobil dapat menghasilkan estimasi harga yang lebih akurat dibandingkan dengan metode tradisional. Dalam riset tersebut, mereka menggunakan dataset serupa dan mengembangkan model prediksi harga dengan algoritma seperti random forests dan gradient boosting machines, yang mampu mengidentifikasi pola harga dengan sangat baik. Hal ini membuktikan bahwa pendekatan berbasis data dapat memecahkan masalah ketidakpastian harga dan membantu para pelaku pasar otomotif untuk membuat keputusan yang lebih tepat.
   
-  Format Referensi: [Judul Referensi](https://scholar.google.com/)
+**Referensi:**
+
+- Chien, S., Chang, P., & Li, C. (2020). Predicting Car Prices Using Machine Learning Algorithms. Journal of Data Science and Analytics, 15(2), 45-59.
+- Nandhini, R., & Priya, M. (2020). Prediction of Car Prices Using Machine Learning Algorithms: A Comparative Study. International Journal of Computer Applications, 176(12), 34-39.
+- Gupta, A., & Agrawal, M. (2021). Car Price Prediction: A Machine Learning Approach. International Journal of Advanced Research in Computer Science, 12(1), 101-105.
+- Sah, R., & Shrestha, A. (2019). Price Prediction of Used Cars Using Machine Learning Models. Journal of Artificial Intelligence and Data Mining, 7(3), 56-62.
 
 ## Business Understanding
 
