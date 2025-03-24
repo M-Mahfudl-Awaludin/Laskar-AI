@@ -32,32 +32,37 @@ Sebuah studi yang dilakukan oleh Chien et al. (2020) mengungkapkan bahwa penggun
 
 ## Business Understanding
 
-Pada bagian ini, kamu perlu menjelaskan proses klarifikasi masalah.
-
-Bagian laporan ini mencakup:
+Pada bagian ini, akan dijelaskan proses klarifikasi masalah yang ada dalam penentuan harga mobil. Penjelasan ini mencakup pernyataan masalah yang relevan, tujuan dari penyelesaian masalah tersebut, serta solusi yang diusulkan berdasarkan hasil penelitian.
 
 ### Problem Statements
 
 Menjelaskan pernyataan masalah latar belakang:
-- Pernyataan Masalah 1
-- Pernyataan Masalah 2
-- Pernyataan Masalah n
+- Pernyataan Masalah 1 :<br>
+Harga mobil sering kali ditentukan secara subyektif dan dipengaruhi oleh berbagai faktor yang tidak selalu transparan. Hal ini menyulitkan pembeli dan penjual untuk mencapai kesepakatan yang adil, serta membuat pasar kendaraan menjadi kurang efisien.
+- Pernyataan Masalah 2 :<br>
+Ketidakpastian harga kendaraan bekas menyebabkan pembeli kesulitan dalam menentukan nilai pasar yang wajar. Di sisi lain, penjual mungkin tidak mengetahui harga yang tepat untuk memasarkan mobil mereka.
 
 ### Goals
 
 Menjelaskan tujuan dari pernyataan masalah:
-- Jawaban pernyataan masalah 1
-- Jawaban pernyataan masalah 2
-- Jawaban pernyataan masalah n
+- Jawaban pernyataan masalah 1 :<br>
+Mengembangkan sebuah model yang dapat memprediksi harga mobil secara lebih objektif dan berbasis data, sehingga dapat membantu penjual menetapkan harga yang sesuai dengan nilai pasar dan pembeli dapat mendapatkan harga yang transparan.
+- Jawaban pernyataan masalah 2 :<br>
+Memberikan rekomendasi harga yang lebih akurat dan dapat dipercaya dengan mempertimbangkan berbagai variabel yang memengaruhi harga kendaraan, seperti usia mobil, jarak tempuh, dan kondisi fisik kendaraan.
 
-Semua poin di atas harus diuraikan dengan jelas. Anda bebas menuliskan berapa pernyataan masalah dan juga goals yang diinginkan.
+### Solution statements
+- Solusi 1:<br>
+Menggunakan model machine learning seperti random forest dan gradient boosting untuk memprediksi harga mobil dengan lebih akurat berdasarkan dataset yang mencakup variabel penting, seperti usia kendaraan, merek, model, dan jarak tempuh. Model ini akan melibatkan proses pelatihan dengan data historis untuk menghasilkan prediksi harga yang lebih tepat. Untuk mengukur keberhasilan model, penelitian ini akan menggunakan metrik evaluasi seperti mean absolute error (MAE) atau root mean square error (RMSE).
+- Solusi 2:<br>
+Mengimplementasikan teknik hyperparameter tuning untuk meningkatkan akurasi model prediksi harga mobil. Proses ini akan melibatkan eksperimen dengan parameter yang berbeda untuk algoritma seperti random forest atau support vector machine (SVM), guna menemukan kombinasi terbaik yang dapat mengoptimalkan hasil prediksi. Penggunaan metrik evaluasi seperti R² score dan mean squared error (MSE) akan membantu menilai kualitas model yang dihasilkan.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Menambahkan bagian “Solution Statement” yang menguraikan cara untuk meraih goals. Bagian ini dibuat dengan ketentuan sebagai berikut:
+**Evaluasi dan Metrik**
+Untuk mengevaluasi keberhasilan solusi yang diterapkan, metrik evaluasi yang digunakan termasuk:
+- Mean Absolute Error (MAE): Mengukur rata-rata kesalahan prediksi dalam satuan yang sama dengan data asli.
+- Root Mean Square Error (RMSE): Memberikan gambaran tentang seberapa besar kesalahan model dengan memberikan penalti lebih besar terhadap kesalahan yang lebih besar.
+- R² Score: Menilai seberapa baik model dapat menjelaskan varians dalam data yang digunakan untuk pelatihan.
 
-    ### Solution statements
-    - Mengajukan 2 atau lebih solution statement. Misalnya, menggunakan dua atau lebih algoritma untuk mencapai solusi yang diinginkan atau melakukan improvement pada baseline model dengan hyperparameter tuning.
-    - Solusi yang diberikan harus dapat terukur dengan metrik evaluasi.
+Solusi-solusi yang diajukan dalam penelitian ini dirancang untuk mengatasi masalah ketidakpastian harga dan memastikan bahwa model yang dikembangkan dapat digunakan secara praktis dalam konteks dunia nyata.
 
 ## Data Understanding
 Paragraf awal bagian ini menjelaskan informasi mengenai data yang Anda gunakan dalam proyek. Sertakan juga sumber atau tautan untuk mengunduh dataset. Contoh: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data).
