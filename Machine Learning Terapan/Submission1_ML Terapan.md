@@ -282,27 +282,210 @@ Tahapan data preparation yang dilakukan bertujuan untuk:
 Tahapan ini penting untuk meningkatkan performa model dan memastikan bahwa data yang digunakan sesuai untuk proses pembelajaran mesin.
 
 ## Modeling
-Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
+Pada tahap ini, dipilih dan diterapkan algoritma machine learning yang sesuai untuk menyelesaikan permasalahan yang ada. Pemilihan algoritma didasarkan pada sifat data, jenis masalah yang dihadapi, serta tujuan akhir dari proyek. Setelah memilih algoritma, dilakukan pemrosesan lebih lanjut untuk mengoptimalkan model melalui teknik hyperparameter tuning, serta memilih model terbaik berdasarkan evaluasi yang dilakukan.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
-- Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
-- Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
+**1. RandomForestRegressor**
+
+**Deskripsi Model:**
+RandomForestRegressor adalah model ensemble yang menggabungkan beberapa pohon keputusan (decision trees) untuk meningkatkan akurasi prediksi. Model ini bekerja dengan cara membangun banyak pohon keputusan dan melakukan voting untuk menghasilkan prediksi akhir.
+
+**Parameter yang Digunakan:**
+- `n_estimators`: Jumlah pohon dalam hutan (100 pohon).
+- `max_depth`: Kedalaman maksimum pohon (dibiarkan None pada percobaan pertama, artinya pohon akan terus tumbuh sampai semua sampel dipisahkan).
+- `min_samples_split`: Minimum jumlah sampel untuk membagi simpul (2).
+- `min_samples_leaf`: Minimum jumlah sampel untuk menjadi daun pada pohon (1).
+- `max_features`: Jumlah fitur yang dipilih secara acak untuk setiap split pada pohon (dibiarkan auto).
+
+**Kelebihan:**
+- Dapat menangani data yang sangat besar dan beragam dengan baik tanpa overfitting.
+- Tidak membutuhkan scaling fitur.
+- Dapat menangani data yang hilang dengan cukup baik.
+
+**Kekurangan:**
+- Membangun banyak pohon keputusan bisa sangat memakan waktu pada dataset yang besar.
+- Hasil model sulit diinterpretasikan dibandingkan dengan model linear seperti regresi linear.
+
+**Hasil Evaluasi:**
+- Mean Absolute Error (MAE): 248.79
+- Mean Squared Error (MSE): 102985.12
+- R-squared Score (R2): 0.9888
+
+**2. GradientBoostingRegressor**
+
+**Deskripsi Model:**
+GradientBoostingRegressor adalah model ensemble yang membangun model secara bertahap. Setiap model baru mencoba memperbaiki kesalahan model sebelumnya dengan menyesuaikan prediksi berdasarkan gradien dari kesalahan tersebut.
+
+**Parameter yang Digunakan:**
+- `n_estimators`: Jumlah estimators (100 pohon).
+- `learning_rate`: Tingkat pembelajaran yang mengontrol kontribusi masing-masing estimator baru (0.01).
+- `max_depth`: Kedalaman maksimum pohon keputusan (3).
+- `min_samples_split`: Jumlah sampel minimum untuk membagi simpul (5).
+- `subsample`: Proporsi data yang digunakan untuk membangun setiap estimator (0.9).
+
+**Kelebihan:**
+- Akurasinya tinggi dengan tuning parameter yang tepat.
+- Lebih baik dalam mengatasi overfitting pada data yang lebih kecil dibandingkan RandomForest.
+
+**Kekurangan:**
+- Memerlukan waktu komputasi yang lama pada dataset besar.
+- Sensitif terhadap outlier yang signifikan dalam data.
+
+**Hasil Evaluasi:**
+- Mean Absolute Error (MAE): 169.55
+- Mean Squared Error (MSE): 46943.37
+- R-squared Score (R2): 0.9949
+
+**3. XGBoost**
+
+**Deskripsi Model:**
+XGBoost (Extreme Gradient Boosting) adalah implementasi yang lebih efisien dan cepat dari Gradient Boosting. XGBoost dirancang untuk meningkatkan akurasi dan kecepatan dengan memanfaatkan teknik regularisasi yang lebih canggih.
+
+**Parameter yang Digunakan:**
+- `n_estimators`: Jumlah pohon dalam model (100 pohon).
+- `learning_rate`: Pengaturan kecepatan untuk setiap pohon (0.1).
+- `max_depth`: Kedalaman maksimum dari setiap pohon (3).
+- `subsample`: Proporsi data yang digunakan untuk membangun setiap pohon (0.9).
+
+**Kelebihan:**
+- Lebih cepat dibandingkan Gradient Boosting.
+- Memiliki teknik regularisasi yang lebih baik untuk mencegah overfitting.
+
+**Kekurangan:**
+- Membutuhkan tuning hyperparameter yang lebih kompleks untuk hasil optimal.
+
+**Hasil Evaluasi:**
+- Mean Absolute Error (MAE): 139.85
+- Mean Squared Error (MSE): 31600.33
+- R-squared Score (R2): 0.9966
+
+**4. Linear Regression**
+
+**Deskripsi Model:**
+Linear Regression adalah model regresi yang sederhana yang memprediksi nilai target dengan mencari hubungan linier antara fitur dan target.
+
+**Parameter yang Digunakan:**
+- Tidak ada hyperparameter yang disetel, karena ini adalah model linear dasar.
+
+**Kelebihan:**
+- Sederhana dan mudah diinterpretasikan.
+- Cepat dalam pelatihan dan tidak memerlukan banyak waktu komputasi.
+
+**Kekurangan:**
+- Tidak cocok untuk dataset yang memiliki hubungan kompleks antara fitur dan target.
+
+**Hasil Evaluasi:**
+- Mean Absolute Error (MAE): 19.98
+- Mean Squared Error (MSE): 4210.79
+- R-squared Score (R2): 0.9995
+
+**Pemilihan Model Terbaik**
+
+Setelah membandingkan hasil dari keempat model di atas, **Linear Regression** dipilih sebagai model terbaik karena memiliki nilai **MAE, MSE, dan R²** yang paling baik dibandingkan dengan model lainnya. 
+
+**Alasan Pemilihan:**
+- **Akurasi yang sangat tinggi**, terbukti dari nilai **R² sebesar 0.9995**.
+- **Kesederhanaan model**, yang membuatnya lebih mudah diinterpretasikan dan lebih cepat dalam eksekusi.
+- **Tidak memerlukan tuning parameter yang kompleks**, sehingga lebih efisien dalam implementasi.
+
+Dengan demikian, **Linear Regression** dipilih sebagai model terbaik untuk menyelesaikan permasalahan ini.
+
 
 ## Evaluation
-Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
 
-Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
-- Penjelasan mengenai metrik yang digunakan
-- Menjelaskan hasil proyek berdasarkan metrik evaluasi
+Pada bagian ini, evaluasi performa model dilakukan menggunakan beberapa metrik yang relevan. Model yang diuji dalam proyek ini meliputi:
+- Random Forest Regressor
+- Gradient Boosting Regressor
+- XGBoost Regressor
+- Linear Regression
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+**Metrik Evaluasi**
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+Metrik yang digunakan dalam evaluasi model regresi ini adalah:
+
+**1. Mean Absolute Error (MAE)**
+
+**Formula:**  
+MAE = (1/n) * Σ | yᵢ - ŷᵢ |
+
+MAE mengukur rata-rata kesalahan absolut antara nilai aktual dan prediksi. Nilai yang lebih kecil menunjukkan prediksi yang lebih akurat.
+
+**2. Mean Squared Error (MSE)**
+
+**Formula:**  
+MSE = (1/n) * Σ ( yᵢ - ŷᵢ )²
+
+MSE memberikan penalti lebih besar untuk kesalahan yang lebih besar, sehingga lebih sensitif terhadap outlier.
+
+**3. R-squared Score (R²)**
+
+**Formula:**  
+R² = 1 - (SS_res / SS_tot)
+
+R² menunjukkan seberapa baik model menjelaskan variasi dalam data. Nilai mendekati 1 berarti model sangat baik dalam memprediksi data.
+
+**Hasil Evaluasi**
+Berikut adalah hasil evaluasi untuk masing-masing model:
+
+1. Random Forest Regressor
+- MAE: 248.79
+- MSE: 102985.12
+- R²: 0.9888
+
+2. Gradient Boosting Regressor
+- MAE: 169.55
+- MSE: 46943.37
+- R²: 0.9949
+
+3. XGBoost Regressor
+- MAE: 139.85
+- MSE: 31600.33
+- R²: 0.9966
+
+4. Linear Regression
+- MAE: 19.98
+- MSE: 4210.79
+- R²: 0.9995
+
+**Analisis Hasil**<br>
+Berdasarkan hasil evaluasi:
+- Linear Regression memiliki MAE dan MSE yang paling rendah serta nilai R² yang paling tinggi (0.9995), menunjukkan bahwa model ini memiliki performa terbaik dalam memprediksi data.
+- XGBoost Regressor juga menunjukkan performa yang sangat baik dengan R² sebesar 0.9966, namun masih sedikit di bawah Linear Regression.
+- Gradient Boosting Regressor memiliki performa yang lebih baik dibandingkan Random Forest dengan R² sebesar 0.9949.
+- Random Forest Regressor memiliki MAE dan MSE yang paling tinggi, serta R² yang lebih rendah dibandingkan model lainnya, menunjukkan bahwa model ini kurang optimal dibandingkan alternatif lainnya.
+
+**Visualisasi Hasil**<br>
+Untuk memahami lebih lanjut performa model, beberapa visualisasi telah dilakukan:
+1. Perbandingan MAE dan R² antar model
+- MAE yang lebih kecil menunjukkan prediksi lebih akurat.
+- R² yang lebih tinggi menunjukkan model yang lebih baik dalam menjelaskan variasi data.
+
+![20](https://github.com/user-attachments/assets/ce8111b0-b301-4023-ba74-2beeb55ce983)
+
+2. Plot Prediksi vs Nilai Aktual
+- Scatter plot menunjukkan seberapa dekat prediksi model terhadap nilai aktual.
+- Garis referensi y = x digunakan untuk melihat seberapa akurat model dalam memprediksi.
+
+![21](https://github.com/user-attachments/assets/0f40c4dc-227b-4869-b4c8-17dc0d829400)
+
+3. Distribusi Error
+- Histogram distribusi error menunjukkan pola kesalahan model.
+- Model dengan distribusi error yang lebih sempit dan terpusat di sekitar nol menunjukkan prediksi yang lebih akurat.
+
+![22](https://github.com/user-attachments/assets/d64f30ca-5e88-4a58-b14d-6de4dcb5e534)
+
+**Hubungan dengan Business Understanding**<br>
+Evaluasi model ini berkaitan erat dengan tujuan utama dalam Business Understanding:
+
+1. Menjawab Pernyataan Masalah 1: Model yang dikembangkan bertujuan untuk membuat prediksi harga mobil yang lebih objektif dan berbasis data. Dengan menggunakan Linear Regression sebagai model terbaik, prediksi harga mobil menjadi lebih akurat, membantu pembeli dan penjual menetapkan harga yang lebih transparan. Hal ini mengurangi subjektivitas dalam penentuan harga mobil dan meningkatkan efisiensi pasar kendaraan.
+
+2. Menjawab Pernyataan Masalah 2: Dengan model prediksi yang akurat, ketidakpastian harga kendaraan bekas dapat dikurangi. Model ini mempertimbangkan faktor penting seperti usia, jarak tempuh, dan kondisi kendaraan, memberikan rekomendasi harga yang lebih dapat dipercaya. Dengan demikian, pembeli lebih mudah menilai nilai pasar wajar kendaraan, sementara penjual dapat menentukan harga yang lebih kompetitif.
+
+**Kesimpulan**
+
+Dari evaluasi yang dilakukan, Linear Regression adalah model terbaik untuk dataset ini karena memiliki MAE dan MSE paling rendah serta nilai R² yang mendekati 1. XGBoost juga merupakan alternatif yang baik jika ingin menggunakan model berbasis pohon keputusan. Model Random Forest memiliki performa terendah dibandingkan model lainnya dalam kasus ini.
+
+Evaluasi ini menunjukkan bahwa pemilihan model sangat bergantung pada konteks data dan metrik yang digunakan. Untuk kasus serupa, Linear Regression bisa menjadi pilihan utama, namun dalam situasi yang lebih kompleks, model berbasis boosting seperti XGBoost bisa lebih optimal. Dengan model yang telah dikembangkan, prediksi harga mobil dapat dilakukan dengan lebih transparan dan akurat, sehingga mendukung efisiensi pasar kendaraan.
+
 
 **---Ini adalah bagian akhir laporan---**
 
-_Catatan:_
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
