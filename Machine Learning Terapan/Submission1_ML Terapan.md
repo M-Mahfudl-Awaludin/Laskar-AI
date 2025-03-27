@@ -65,17 +65,42 @@ Untuk mengevaluasi keberhasilan solusi yang diterapkan, metrik evaluasi yang dig
 Solusi-solusi yang diajukan dalam penelitian ini dirancang untuk mengatasi masalah ketidakpastian harga dan memastikan bahwa model yang dikembangkan dapat digunakan secara praktis dalam konteks dunia nyata.
 
 ## Data Understanding
-Paragraf awal bagian ini menjelaskan informasi mengenai data yang Anda gunakan dalam proyek. Sertakan juga sumber atau tautan untuk mengunduh dataset. Contoh: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data).
+Pada bagian ini, penelitian akan menjelaskan informasi mengenai dataset yang digunakan dalam proyek ini, termasuk sumber data serta deskripsi variabel yang terdapat di dalamnya.
 
-Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:  
+**Sumber Data**
 
-### Variabel-variabel pada Restaurant UCI dataset adalah sebagai berikut:
-- accepts : merupakan jenis pembayaran yang diterima pada restoran tertentu.
-- cuisine : merupakan jenis masakan yang disajikan pada restoran.
-- dst
+Dataset yang digunakan dalam proyek ini berasal dari Kaggle - [Car Price Dataset](https://www.kaggle.com/datasets/luizkrawiec/car-price-dataset/data) yang disediakan oleh Luiz Krawiec. Dataset ini berisi informasi mengenai berbagai fitur dan spesifikasi teknis kendaraan yang dapat digunakan untuk analisis harga mobil.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data atau exploratory data analysis.
+**Ringkasan Dataset**
+
+Dataset ini terdiri dari 10.000 baris data dan 10 kolom fitur. Setiap baris mewakili satu entri kendaraan dengan atribut-atribut tertentu yang menjelaskan karakteristik dan spesifikasinya.
+
+### Variabel-variabel pada Car Price Dataset adalah sebagai berikut:
+Dataset ini memiliki total 10 kolom dengan 10.000 entri. Berikut adalah penjelasan dari masing-masing variabel dalam dataset:
+1. Brand (object) - Merek atau produsen kendaraan, seperti HYUNDAI, TOYOTA, dll.
+2. Model (object) - Model spesifik kendaraan dari masing-masing merek.
+3. Year (int64) - Tahun produksi kendaraan.
+4. Engine_Size (float64) - Kapasitas mesin kendaraan dalam liter.
+5. Fuel_Type (object) - Jenis bahan bakar yang digunakan kendaraan, seperti bensin, diesel, atau listrik.
+6. Transmission (object) - Jenis transmisi kendaraan, misalnya manual atau otomatis.
+7. Mileage (int64) - Jarak tempuh kendaraan dalam satuan kilometer.
+8. Doors (int64) - Jumlah pintu kendaraan.
+9. Owner_Count (int64) - Jumlah pemilik sebelumnya dari kendaraan tersebut.
+10. Price (int64) - Harga kendaraan dalam satuan mata uang tertentu.
+
+### Exploratory Data Analysis (EDA)
+
+**1.Statistik Deskriptif**
+
+Untuk memahami karakteristik data, dilakukan analisis statistik deskriptif menggunakan df.describe(). Berikut adalah ringkasan statistik dari fitur numerik:<br>
+![1](https://github.com/user-attachments/assets/0b05dfef-0915-4790-b0f1-b360c8027d7f)
+
+
+**1.Statistik Deskriptif**
+
+**1.Statistik Deskriptif**
+
+**1.Statistik Deskriptif**
 
 ## Data Preparation
 Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
