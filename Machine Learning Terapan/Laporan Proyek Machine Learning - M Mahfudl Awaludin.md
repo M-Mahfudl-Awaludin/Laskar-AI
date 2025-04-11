@@ -129,43 +129,46 @@ Deskripsi: Menganalisis statistik ringkasan dari data rating: jumlah data, rata-
 | 50% (median)  |  3  |
 | 75%  |  4  |
 
+**Visualisasi Data Tempat Wisata :**<br>
+1. Visualisasi Distribusi Kategori Tempat Wisata
+Tujuan: Untuk melihat jumlah tempat wisata berdasarkan kategorinya.
+![1](https://github.com/user-attachments/assets/99bd717b-3bdc-4270-8128-2b4884ef4b20)
 
-**Visualisasi Data:**
+3. Distribusi Harga Tempat Wisata
+Tujuan: Memahami rentang harga dan distribusinya di seluruh tempat wisata.
+![2](https://github.com/user-attachments/assets/e632d9d1-5eb8-4fee-9d4d-11e8092c495e)
 
-1. Visualisasi Distribusi Rating:
-- Hasil: Sebagian besar tempat wisata memiliki rating 3 hingga 5, dengan mayoritas di atas 4.
-- Visualisasi: Bar chart menunjukkan tempat wisata dengan jumlah rating terbanyak.
-    Output <br>
-    ![1](https://github.com/user-attachments/assets/d6bbd76f-a606-4909-8c6b-fae08b3e50ea)
+3. Distribusi Rating Tempat Wisata
+Tujuan: Mengetahui bagaimana rating tersebar di seluruh tempat wisata.
+![3](https://github.com/user-attachments/assets/fa4e3d56-1722-4b55-9f97-cde55e6934df)
 
-    
-2. Kategori Tempat Wisata
-- Hasil: Kategori tempat wisata yang paling umum adalah Alam dan Budaya, sementara kategori lain seperti Sejarah lebih jarang muncul.
-- Visualisasi: Countplot menunjukkan distribusi kategori
-    Hasil <br>
-    ![2](https://github.com/user-attachments/assets/0e52c3ba-c5cd-45e4-85fc-73c808147c2e)
+4. Korelasi Antar Fitur Numerik
+Tujuan: Melihat hubungan antara variabel numerik, yaitu Price, Rating, dan Time_Minutes.
+![4](https://github.com/user-attachments/assets/e542aa00-4d63-478a-b760-73f2f40e0504)
 
-    
-3. Distribusi Harga Tempat Wisata:
-- Hasil: Harga tiket sebagian besar berkisar di antara Rp10.000 hingga Rp50.000, dengan beberapa outlier yang memiliki harga lebih tinggi.
-- Visualisasi: Boxplot menunjukkan persebaran harga tiket.
+**Visualisasi Data Rating Wisata :**<br>
+1. Tempat Wisata dengan Jumlah Rating Terbanyak
+Tujuan: Mengetahui tempat wisata yang paling sering diberi rating oleh pengguna.
+![5](https://github.com/user-attachments/assets/bc1d8729-48aa-4092-a279-ef68b01e8476)
 
-    Hasil <br>
-    ![4](https://github.com/user-attachments/assets/7e7afc4f-2856-47f8-9e17-5ca992ba7244)
+2. Distribusi Rating yang Diberikan Pengguna
+Tujuan: Melihat pola penilaian dari pengguna.
+![6](https://github.com/user-attachments/assets/671b7905-23cb-448b-97ff-5c351b0c363b)
 
-4. Distribusi Usia Pengguna
-- Hasil: Usia pengguna bervariasi, dengan rentang mayoritas antara 20 hingga 35 tahun.
-- Visualisasi: Boxplot menunjukkan distribusi usia pengguna.
+**Visualisasi Data User :**<br>
+1. Distribusi Umur Pengguna
+Tujuan: Mengetahui kelompok usia yang paling aktif menggunakan platform.
+![7](https://github.com/user-attachments/assets/e8a4a86d-2d6c-4c57-8903-6c53efa8a8f0)
 
-  Output <br>
-    ![3](https://github.com/user-attachments/assets/d6afdbee-254b-4317-b1a3-aad1a2099701)
-    
-5. Asal Kota Pengguna 
-- Hasil: Sebagian besar pengguna berasal dari kota besar seperti Jakarta dan Bandung.
-- Visualisasi: Bar chart horizontal menunjukkan kota asal pengguna dengan kontribusi terbanyak.
-    Output <br>
-    ![5](https://github.com/user-attachments/assets/fd237bee-5255-412d-a136-0f661b7b3e40)
-Dengan pemahaman mendalam melalui proses EDA ini, data siap digunakan untuk membangun sistem rekomendasi berbasis preferensi pengguna.
+**Visualisasi Hubungan Antar Data :**<br>
+1. Rata-rata Rating per Kategori Tempat Wisata
+Tujuan: Melihat kategori mana yang paling disukai pengguna berdasarkan rata-rata rating.
+![8](https://github.com/user-attachments/assets/c8aa563c-2c43-466f-bf4e-31c1f002795a)
+
+2. Rata-rata Rating Berdasarkan Umur Pengguna
+Tujuan: Menganalisis perbedaan preferensi pengguna dari sisi usia.
+![9](https://github.com/user-attachments/assets/79212740-2384-4377-8e0d-cb119344c887)
+
 
 ## Data Preparation
 ada bagian ini, langkah-langkah yang diambil untuk mempersiapkan data sebelum dilakukan modeling dalam sistem rekomendasi dijelaskan. Persiapan data yang matang sangat penting untuk memastikan bahwa model yang dibangun memiliki data yang berkualitas dan dapat menghasilkan rekomendasi yang akurat.
