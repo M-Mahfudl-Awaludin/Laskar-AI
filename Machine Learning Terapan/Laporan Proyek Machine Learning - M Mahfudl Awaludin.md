@@ -335,6 +335,21 @@ Hasil Training : <br>
 
 Pada tahap ini, metrik evaluasi yang digunakan untuk menilai kinerja sistem rekomendasi yang telah dibangun dibahas. Metrik evaluasi yang dipilih harus sesuai dengan tujuan dan karakteristik dari sistem rekomendasi.
 
+1. Visualisasi Training dan Validation RMSE
+Root Mean Squared Error (RMSE) : Untuk mengevaluasi model Collaborative Filtering berbasis neural network, digunakan metrik Root Mean Squared Error (RMSE). RMSE mengukur seberapa besar kesalahan prediksi model terhadap data aktual. Nilai RMSE yang lebih kecil menandakan bahwa prediksi model mendekati nilai aktual.
+
+Formula RMSE:<br>
+![21](https://github.com/user-attachments/assets/a69d0234-0e2d-4b87-b911-afa58480ee1a)
+
+- $\hat{y}_i$ = prediksi model  
+- $y_i$ = nilai aktual  
+- $n$ = jumlah data  
+
+Hasil :
+
+![17](https://github.com/user-attachments/assets/2bbdee91-a4f6-4cf1-84bd-5901f490c098)
+
+
 ***Metrik Evaluasi yang Digunakan***
 Untuk sistem rekomendasi, terdapat beberapa metrik evaluasi yang sering digunakan. Dalam proyek ini, kita akan fokus pada dua metrik utama yang sesuai dengan konteks Collaborative Filtering (SVD) dan Content-Based Filtering, yaitu Precision@k dan Recall@k.
 
@@ -359,48 +374,6 @@ Formula untuk F1-Score adalah: <br>
 
 Penjelasan:
 Metrik ini memberikan gambaran yang lebih menyeluruh mengenai kinerja model. F1-Score menjadi penting ketika kita ingin menyeimbangkan Precision dan Recall dalam memberikan rekomendasi. F1-Score digunakan untuk mengevaluasi kualitas rekomendasi yang diberikan dengan memperhatikan baik seberapa relevan rekomendasi tersebut (Precision) serta seberapa banyak item relevan yang bisa ditemukan (Recall).
-
-***Evaluasi Berdasarkan Metrik***
-Langkah-langkah Evaluasi
-Berikut adalah evaluasi yang dapat dilakukan untuk dua model ini berdasarkan rekomendasi yang dihasilkan.
-
-1. Content-Based Filtering Evaluation
-Pada Content-Based Filtering, rekomendasi dihitung berdasarkan kesamaan konten dari tempat yang sudah dikunjungi oleh pengguna dengan tempat-tempat lain yang tersedia. Dalam contoh ini, sistem memberikan rekomendasi tempat-tempat berdasarkan kategori dan harga yang relevan dengan preferensi pengguna.
-
-    Contoh output rekomendasi yang dihasilkan: <br>
-    ![Capture](https://github.com/user-attachments/assets/6767da50-ae54-4168-8aa9-be550c707f48)
-    
-    
-    Proses evaluasi Content-Based Filtering:
-    - Precision@k:
-    Mengukur apakah tempat-tempat yang direkomendasikan kepada pengguna relevan dengan preferensi mereka.
-    Misalnya, jika tempat yang sudah dikunjungi oleh pengguna memiliki kesamaan kategori dan harga dengan rekomendasi, maka itu dihitung sebagai relevan.
-    
-    - Recall@k:
-    Mengukur apakah rekomendasi berhasil mencakup semua tempat relevan yang mungkin ingin dikunjungi oleh pengguna.
-    Jika ada lebih banyak tempat relevan yang tidak tercakup oleh sistem, maka recall akan rendah.
-    
-    - F1-Score@k:
-    Menggunakan Precision dan Recall untuk mendapatkan ukuran keseimbangan antara keduanya.
-
-2. Collaborative Filtering Evaluation
-Pada Collaborative Filtering, model ini menggunakan data rating dan preferensi dari pengguna lain untuk memberikan rekomendasi kepada pengguna tertentu.
-
-    Contoh output rekomendasi yang dihasilkan: <br>
-    ![sss](https://github.com/user-attachments/assets/e2332d4c-4f24-4a13-b5f9-3b01ece5a33d)
-    
-    
-    
-    Proses evaluasi Collaborative Filtering:
-    
-    - Precision@k:
-    Sama seperti pada Content-Based Filtering, kita menghitung seberapa akurat rekomendasi yang diberikan, apakah sesuai dengan rating tinggi yang diberikan oleh pengguna.
-    
-    - Recall@k:
-    Dalam Collaborative Filtering, recall mengukur seberapa banyak tempat yang relevan dari segi rating yang bisa ditemukan dalam rekomendasi yang diberikan oleh sistem.
-    
-    - F1-Score@k:
-    Kombinasi dari Precision dan Recall untuk mengevaluasi keseimbangan antara keduanya.
 
 **Perbandingan Evaluasi antara Content-Based Filtering dan Collaborative Filtering**
 
@@ -440,5 +413,65 @@ Kesimpulan untuk Collaborative Filtering: Model Collaborative Filtering bekerja 
 
 - Content-Based Filtering memiliki hasil yang lebih rendah karena model ini hanya bergantung pada konten dan fitur yang ada pada tempat-tempat wisata. Dengan demikian, model ini mungkin gagal menangkap keinginan pengguna yang lebih spesifik atau tidak dapat menemukan tempat yang cukup relevan untuk direkomendasikan.
 - Collaborative Filtering, di sisi lain, berfungsi lebih baik karena memanfaatkan interaksi pengguna lain (misalnya, rating atau preferensi dari pengguna serupa), yang sering kali menghasilkan rekomendasi yang lebih akurat. Ini bisa sangat efektif dalam kasus di mana preferensi pengguna tidak sepenuhnya dapat dipahami hanya dari konten.
+
+### Testing Model
+1. Content-Based Filtering
+Untuk menguji sistem rekomendasi berbasis Content-Based Filtering, digunakan fungsi generate_candidates() yang menerima parameter seperti kota dan harga maksimum. Fungsi ini bertujuan menghasilkan daftar tempat wisata yang relevan berdasarkan atribut kesukaan pengguna sebelumnya, seperti lokasi dan kisaran harga.
+```python
+# Generate kandidat rekomendasi wisata di Bandung dengan harga maksimal Rp100.000
+generate_candidates(city="Bandung", max_price=100000).head(5)
+
+# Generate kandidat rekomendasi wisata di Surabaya dengan harga maksimal Rp110.000
+generate_candidates("Surabaya", 110000).head(5)
+   ```
+Deskripsi: Fungsi ini mengeliminasi tempat-tempat wisata yang tidak memenuhi kriteria pengguna, lalu mengurutkan dan menampilkan 5 tempat teratas berdasarkan kesamaan fitur. Hal ini membantu pengguna menemukan wisata serupa dari preferensi sebelumnya, meski belum pernah dikunjungi.
+
+Output : <br>
+
+![22](https://github.com/user-attachments/assets/f9b38246-7d2c-4f6a-96fb-1337f3857463)<br>
+
+![23](https://github.com/user-attachments/assets/d8c267e0-47b1-4ec9-bf60-11496877cdf2)
+
+2. Collaborative Filtering
+Untuk pengujian Collaborative Filtering, pendekatan yang digunakan melibatkan model prediktif berdasarkan interaksi pengguna dengan tempat wisata. Model ini memprediksi rating untuk tempat yang belum dikunjungi berdasarkan pola rating pengguna lain yang mirip.
+
+Langkah-Langkah:
+1. Mengambil Data Acak Pengguna:
+```python
+user_id = df.User_Id.sample(1).iloc[0]
+place_visited_by_user = df[df.User_Id == user_id]
+   ```
+2. Menentukan Tempat yang Belum Dikunjungi: Tempat wisata yang belum dikunjungi oleh pengguna dipilih dari dataframe place_df dengan menyaring berdasarkan Place_Id.
+3. Encoding dan Prediksi Rating: Tempat-tempat tersebut diencoding lalu dikombinasikan dengan ID pengguna, kemudian diprediksi ratingnya oleh model:
+```python
+top_ratings_indices = ratings.argsort()[-10:][::-1]
+recommended_place_ids = [
+    place_encoded_to_place.get(place_not_visited[x][0]) for x in top_ratings_indices
+]
+   ```   
+4. Menampilkan Rekomendasi Terbaik:
+```python
+ratings = model.predict(user_place_array).flatten()
+   ```
+Rekomendasi ditentukan berdasarkan top 10 tempat dengan prediksi rating tertinggi.
+5. Visualisasi dan Verifikasi: Ditampilkan juga tempat-tempat yang sudah pernah dikunjungi dengan rating tertinggi untuk memverifikasi kesesuaian rekomendasi:
+```python
+top_place_user = (
+    place_visited_by_user.sort_values(
+        by = 'Place_Ratings',
+        ascending=False
+    )
+    .head(5)
+    .Place_Id.values
+)
+
+place_df_rows = place_df[place_df['Place_Id'].isin(top_place_user)]
+pd.DataFrame(place_df_rows)
+   ```
+
+Output : 
+
+![24](https://github.com/user-attachments/assets/b3b381d1-499c-40c8-ac9c-618569da0b1c)
+
 
 ---Ini adalah bagian akhir laporan---
