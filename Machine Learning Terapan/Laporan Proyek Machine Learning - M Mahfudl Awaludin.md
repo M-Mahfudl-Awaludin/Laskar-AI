@@ -91,7 +91,44 @@ File ini menyimpan profil pengguna sistem, terdiri dari 300 entri dengan 3 fitur
 | Age  |  Usia pengguna  |  int64  |
 
 ### Eksplorasi Data Analysis
-Sebelum melanjutkan ke tahap pembuatan sistem rekomendasi, penting untuk memahami struktur dan kualitas data yang ada. Proses Eksplorasi Data (EDA) digunakan untuk memperoleh wawasan mengenai distribusi data dan hubungan antar variabel.
+1. Cek Missing Values (Nilai Kosong)
+```python
+info_tourism.isnull().sum()
+tourism_rating.isnull().sum()
+users.isnull().sum()
+   ```
+Deskripsi: Langkah ini digunakan untuk memeriksa apakah terdapat data yang hilang (missing values) di masing-masing dataframe (info_tourism, tourism_rating, dan users). Hasilnya:
+- info_tourism memiliki 232 nilai kosong pada kolom Time_Minutes dan 437 nilai kosong (semua) pada Unnamed: 11.
+- tourism_rating dan users bersih dari missing values.
+2. Drop Kolom Tidak Relevan
+```python
+info_tourism = info_tourism.drop(columns=['Unnamed: 11'], errors='ignore')
+   ```
+Deskripsi: Menghapus kolom Unnamed: 11 karena tidak mengandung informasi apapun (semua nilai NaN).
+3. Eksplorasi Kategori Tempat Wisata
+```python
+info_tourism.Category.unique()
+   ```
+- Deskripsi: Melihat seluruh jenis kategori wisata yang tersedia dalam dataset.
+- Output:  array(['Budaya', 'Taman Hiburan', 'Cagar Alam', 'Bahari',
+       'Pusat Perbelanjaan', 'Tempat Ibadah'], dtype=object)
+4. Statistik Deskriptif Data Rating
+```python
+tourism_rating.describe()
+   ```
+Deskripsi: Menganalisis statistik ringkasan dari data rating: jumlah data, rata-rata, standar deviasi, nilai minimum dan maksimum, serta kuartil.
+
+| Statistik       | Place_Ratings      | 
+|--------------|---------------|
+| count | 10.000  | 
+| mean  | 3.066  | 
+| std  |  1.38  |
+| min  |  1  |
+| max  |  5  |
+| 25%	  |  2  |
+| 50% (median)  |  3  |
+| 75%  |  4  |
+
 
 **Visualisasi Data:**
 
