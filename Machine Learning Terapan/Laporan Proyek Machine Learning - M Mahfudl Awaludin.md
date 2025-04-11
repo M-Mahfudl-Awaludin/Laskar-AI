@@ -45,55 +45,52 @@ Proyek ini juga menjadi signifikan dalam konteks Indonesia, yang memiliki karakt
 2. Collaborative Filtering: Model ini menggunakan data rating pengguna untuk memprediksi rating yang belum diberikan oleh pengguna terhadap tempat wisata, menggunakan pendekatan neural network berbasis embeddings.
 
 ### Data Understanding
-***Deskripsi Dataset***
+***Deskripsi Dataset***<br>
 Dataset yang digunakan dalam proyek ini berisi informasi tentang tempat wisata di lima kota besar di Indonesia: Jakarta, Yogyakarta, Semarang, Bandung, dan Surabaya. Dataset ini dibuat untuk Capstone Project Bangkit Academy 2021 dan digunakan dalam pengembangan aplikasi GetLoc. Aplikasi ini berfungsi untuk memberikan rekomendasi tempat wisata berdasarkan preferensi pengguna, seperti kota, harga, kategori, dan waktu. Selain itu, GetLoc juga memberikan rekomendasi mengenai rute tercepat dan termurah untuk mengunjungi tempat-tempat tersebut.
 
-### Sumber Dataset:
+### Sumber Dataset:<br>
 Tautan ke Kaggle: [Indonesia Tourism Destination](https://www.kaggle.com/datasets/aprabowo/indonesia-tourism-destination/data)
 
-***Dataset ini terdiri dari empat file utama:***
-1. tourism_with_id.csv: Menyimpan informasi detail tentang tempat wisata di lima kota besar, dengan total sekitar 400 lokasi.
-2. user.csv: Menyimpan data pengguna dummy yang digunakan untuk menghasilkan rekomendasi berdasarkan data pengguna.
-3. tourism_rating.csv: Berisi tiga kolom: user, place, dan rating yang diberikan oleh pengguna. Dataset ini penting untuk membangun sistem rekomendasi berbasis rating.
-4. package_tourism.csv: Berisi rekomendasi tempat wisata terdekat berdasarkan waktu, biaya, dan rating, yang mendukung fitur optimasi rute dan perencanaan perjalanan.
-Dataset ini dapat diunduh di Kaggle - Indonesia Tourism Destination Dataset.
-
-***Deskripsi Dataset***
+***Deskripsi Dataset***<br>
 Dataset terdiri dari empat file utama dengan rincian sebagai berikut:
-
 1. tourism_with_id.csv
-- Jumlah data: 400 baris, 6 kolom.
-- Fitur:
-    - Place_Id: ID unik untuk setiap tempat wisata.
-    - Place_Name: Nama tempat wisata.
-    - Description: Deskripsi singkat tempat wisata.
-    - City: Kota tempat wisata berada (Jakarta, Yogyakarta, dll).
-    - Category: Kategori tempat wisata (alam, budaya, sejarah, dll).
-    - Price: Harga tiket masuk tempat wisata.
+File ini berisi informasi lengkap mengenai destinasi wisata yang tersedia di Indonesia. Terdapat total 437 baris data, masing-masing merepresentasikan satu tempat wisata, dengan 13 kolom/fitur. Berikut adalah penjelasan masing-masing variabel:
+
+| Kolom       | Deskripsi       | Tipe Data       |
+|--------------|---------------|---------------|
+| Place_Id | ID unik tempat wisata  |  int64  |
+| Place_Name  | Nama tempat wisata  |  object (string)  |
+| Description  |  Uraian/deskripsi destinasi  |  object (string)  |
+| Category  |  Kategori wisata (misal: Nature, Culture)  |  object (string)  |
+| City  |  Kota lokasi wisata  | object (string)   |
+| Price  |  Estimasi harga (kemungkinan dalam Rupiah)  |  float64  |
+| Rating  |  Nilai rating (skala 1–5)  |  float64  |
+| Time_Minutes  |  Estimasi waktu kunjungan (dalam menit)  |  float64  |
+|  Coordinate |  Koordinat (gabungan lat-long dalam string)  |  object (string)  |
+| Lat  |  Latitude destinasi wisata  | float64   |
+| Long  |  Longitude destinasi wisata  |  float64  |
+| Unnamed: 11  |  Kolom kosong (semua nilai NaN)  |  float64 (null)  |
+|  Unnamed: 12 |  Kolom tidak terdokumentasi, berisi angka 0/1  | float64 (biner?) |
   
 2. user.csv
-- Jumlah data: 1000 baris, 4 kolom.
-- Fitur:
-    - User_Id: ID unik setiap pengguna.
-    - Location: Lokasi pengguna (kota).
-    - Age: Usia pengguna.
-    - Gender: Jenis kelamin pengguna.
+File ini berisi interaksi pengguna dengan destinasi wisata berupa rating, yang digunakan dalam Collaborative Filtering. Jumlah data sebanyak 10.000 baris, dengan 3 kolom utama:
+
+| Kolom       | Deskripsi       | Tipe Data       |
+|--------------|---------------|---------------|
+| User_Id | ID unik pengguna  |  int64  |
+| Place_Id  | Lokasi asal pengguna (kota/daerah)  |  int64  |
+| Place_Ratings  |  Nilai rating dari pengguna (diduga skala 1–5)  |  float64  |
 
 3. tourism_rating.csv
-- Jumlah data: 5000 baris, 3 kolom.
-- Fitur:
-    - User_Id: ID pengguna yang memberikan rating.
-    - Place_Id: ID tempat wisata yang diberi rating.
-    - Place_Ratings: Rating (skala 1-5) yang diberikan pengguna.
+File ini menyimpan profil pengguna sistem, terdiri dari 300 entri dengan 3 fitur berikut:
 
-4. package_tourism.csv
-- Jumlah data: 200 baris, 3 kolom.
-- Fitur:
-    - Place_Id: ID tempat wisata.
-    - Package: Jenis paket perjalanan berdasarkan waktu, biaya, dll.
-    - Rating: Rating untuk setiap paket perjalanan.
+| Kolom       | Deskripsi       | Tipe Data       |
+|--------------|---------------|---------------|
+| User_Id | ID unik pengguna  |  int64  |
+| Location  | ID tempat wisata (relasi ke Tourism_Info.csv)  |  object (string)  |
+| Age  |  Usia pengguna  |  int64  |
 
-### Eksplorasi Data
+### Eksplorasi Data Analysis
 Sebelum melanjutkan ke tahap pembuatan sistem rekomendasi, penting untuk memahami struktur dan kualitas data yang ada. Proses Eksplorasi Data (EDA) digunakan untuk memperoleh wawasan mengenai distribusi data dan hubungan antar variabel.
 
 **Visualisasi Data:**
