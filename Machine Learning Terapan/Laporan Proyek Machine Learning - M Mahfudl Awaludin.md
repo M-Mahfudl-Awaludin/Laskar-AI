@@ -174,26 +174,80 @@ Tujuan: Menganalisis perbedaan preferensi pengguna dari sisi usia.
 ada bagian ini, langkah-langkah yang diambil untuk mempersiapkan data sebelum dilakukan modeling dalam sistem rekomendasi dijelaskan. Persiapan data yang matang sangat penting untuk memastikan bahwa model yang dibangun memiliki data yang berkualitas dan dapat menghasilkan rekomendasi yang akurat.
 
 ***Langkah-langkah Data Preparation:***
-1. Pemeriksaan Data Missing (Missing Data Handling)
-- Alasan: Data yang hilang dapat mengurangi akurasi model, sehingga perlu ditangani dengan tepat. Jika tidak, bisa menyebabkan bias atau mengurangi kualitas prediksi.
-- Proses: Memeriksa setiap kolom dalam dataset untuk melihat apakah ada nilai yang hilang menggunakan metode isnull() dan sum(). Kolom dengan nilai hilang yang signifikan diimputasi dengan nilai yang tepat.
+1. Menggabungkan Tempat Wisata dari Dua Dataset
+- Tujuan: Menggabungkan semua ID tempat wisata dari dataset informasi dan dataset rating.
+- Alasan: Untuk memastikan cakupan data lengkap, karena bisa saja ada tempat wisata yang hanya muncul di satu dataset.
+2. Melihat Jumlah Tempat Wisata Unik
+- Tujuan: Mengecek berapa banyak total tempat wisata unik yang dimiliki sistem.
+- Alasan: Untuk validasi awal dan memahami ruang rekomendasi yang akan dibangun.
+3. Menggabungkan Data Rating dengan Data Tempat Wisata
+- Tujuan: Menggabungkan detail tempat wisata dengan data ratingnya.
+- Alasan: Dibutuhkan untuk model content-based karena memerlukan fitur seperti kota, kategori, dan deskripsi.
+4. Membuat Fitur Gabungan city_category
+- Tujuan: Membuat fitur teks gabungan antara kota dan kategori wisata.
+- Alasan: Memberi konteks lokasi & tipe wisata secara bersamaan untuk filtering berbasis konten.
+5. Pengecekan Nilai Hilang
+- Tujuan: Mengecek apakah ada nilai kosong/missing.
+- Alasan: Nilai kosong bisa mengganggu proses pemodelan dan perlu ditangani jika ditemukan.
+6. Menghapus Duplikat Tempat Wisata
+- Tujuan: Menghapus duplikat data tempat wisata.
+- Alasan: Duplikasi bisa menyebabkan bias dalam perhitungan similarity atau rekomendasi yang berulang.
 
-2. Pembersihan Data Duplikat
-- Alasan: Data duplikat bisa mengganggu analisis dan memberikan hasil yang bias. Ini dapat menyebabkan rekomendasi yang tidak akurat karena beberapa entri data yang identik diperlakukan seolah-olah mereka adalah data yang berbeda.
-- Proses: Memeriksa dan menghapus baris yang memiliki nilai duplikat dengan menggunakan fungsi drop_duplicates().
+**Content-Based Filtering**
+7. Membuat Fitur Teks dengan CountVectorizer
+- Tujuan: Mengubah fitur teks city_category menjadi format numerik (bag-of-words).
+- Alasan: Diperlukan agar bisa menghitung kemiripan antar item secara matematis.
+8. Melihat Nama Fitur
+- Tujuan: Memeriksa fitur yang dihasilkan oleh vectorizer.
+- Alasan: Untuk validasi dan pemahaman fitur mana yang digunakan dalam analisis.
+9. Melihat Representasi Matrix
+- Tujuan: Menampilkan matriks numerik dari fitur teks.
+- Alasan: Untuk memverifikasi bentuk akhir data yang akan dihitung kesamaannya.
+- Output : <br>
+![10](https://github.com/user-attachments/assets/32ea765b-4f9f-4911-a7be-a72f19dc9232)
 
-3. Konversi Tipe Data
-- Alasan: Beberapa kolom dalam dataset mungkin memiliki tipe data yang tidak sesuai (misalnya, kolom numerik yang disimpan sebagai string). Konversi tipe data yang tepat diperlukan agar model dapat memproses data dengan benar.
-- Proses: Memastikan bahwa kolom seperti rating, harga, dan ID tempat wisata memiliki tipe data numerik yang sesuai.
+![11](https://github.com/user-attachments/assets/1e863e51-b818-4c5a-a0b6-a76d301ee23f)
 
-4. Feature Engineering dan Normalisasi
-- Alasan: Beberapa fitur mungkin memerlukan transformasi agar sesuai dengan model rekomendasi. Normalisasi harga atau rating dapat membantu model dalam memahami rentang nilai yang serupa.
-- Proses: Menambahkan fitur baru jika diperlukan, seperti menggabungkan kategori tempat wisata atau melakukan normalisasi nilai dengan fungsi MinMaxScaler.
+10. Menghitung Cosine Similarity
+- Tujuan: Mengukur seberapa mirip dua tempat wisata berdasarkan fitur teksnya.
+- Alasan: Digunakan sebagai dasar sistem rekomendasi berdasarkan konten.
+- Output :
 
-5. Encoding Kategori
-- Alasan: Kolom kategori dalam data perlu diubah menjadi format numerik agar dapat digunakan dalam model berbasis algoritma pembelajaran mesin.
-- Proses: Menggunakan teknik one-hot encoding untuk kolom kategori tempat wisata dan lokasi.
+![12](https://github.com/user-attachments/assets/05f5e2a2-f672-4e98-b063-d83b85c73246)
 
+11. Membuat DataFrame Kesamaan
+- Tujuan: Menyimpan hasil cosine similarity dalam bentuk DataFrame yang mudah dibaca.
+- Alasan: Untuk memudahkan pencarian tempat wisata yang mirip. 
+- output :
+
+![13](https://github.com/user-attachments/assets/7688edf0-9775-45a2-97e6-595369cc9f15)
+
+**Collaborative Filtering**
+12. Menyiapkan Data Rating
+- Tujuan: Menyiapkan dataset utama untuk collaborative filtering.
+- Alasan: Ini adalah data interaksi user dengan tempat wisata yang akan digunakan oleh model.
+13. Encoding User & Place
+- Tujuan: Mengubah ID ke format numerik.
+- Alasan: Model pembelajaran mesin tidak bisa membaca string, perlu representasi angka.  
+14. Menambahkan Kolom user & place
+- Tujuan: Membuat kolom user dan place dalam bentuk encoded.
+- Alasan: Digunakan sebagai input (X) dalam model.
+15. Normalisasi Rating
+- Tujuan: Mengubah rating ke rentang 0–1.
+- Alasan: Model bisa lebih stabil dan cepat belajar jika data sudah dinormalisasi.
+16. Membuat Input dan Target
+- Tujuan: Menyiapkan X (fitur) dan y (label).
+- Alasan: Format ini digunakan saat training model machine learning.
+17. Split Data Train dan Validation
+- Tujuan: Membagi data menjadi data latih dan validasi.
+- Alasan: Untuk mengevaluasi model dengan data yang belum pernah dilihat sebelumnya, menghindari overfitting.
+
+Output :
+
+![14](https://github.com/user-attachments/assets/c1f98aa1-025b-4076-990b-2887791a726c)
+
+![15](https://github.com/user-attachments/assets/eadbcb67-93d6-4ff2-b9a4-710799acb15a)
+  
 ### Modeling
 Pada tahap modeling, dua pendekatan yang berbeda digunakan untuk membangun sistem rekomendasi tempat wisata. Solusi pertama menggunakan Content-Based Filtering, sementara solusi kedua menggunakan Collaborative Filtering.
 
