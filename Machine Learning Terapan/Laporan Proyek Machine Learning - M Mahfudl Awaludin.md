@@ -254,35 +254,81 @@ Pada tahap modeling, dua pendekatan yang berbeda digunakan untuk membangun siste
 1. Content-Based Filtering
 - Proses:
 Menggunakan fitur-fitur tekstual seperti kategori tempat wisata dan deskripsi untuk menentukan kesamaan antar tempat wisata. Model ini memanfaatkan TF-IDF Vectorizer untuk memetakan teks menjadi vektor, kemudian menghitung kemiripan antar tempat wisata menggunakan Cosine Similarity.
-
+Fungsi yang digunakan adalah:
+```python
+def generate_candidates(city=None, max_price=None, items=data[['Place_Id', 'Place_Name', 'Category', 'Description', 'City', 'Price']]):
+    filtered_items = items
+    if city:
+        filtered_items = filtered_items[filtered_items['City'] == city]
+    if max_price:
+        filtered_items = filtered_items[filtered_items['Price'] <= max_price]
+    return filtered_items
+   ```
+- Cara Kerja
+  - Pengguna memasukkan filter seperti lokasi (kota) dan/atau harga maksimum.
+  - Sistem akan menyaring tempat wisata berdasarkan dua parameter tersebut.
+  - Output-nya berupa daftar tempat wisata sesuai filter, yang bisa ditampilkan sebagai Top-N (misalnya Top-5 tempat teratas).
 - Kelebihan:
-    - Tidak memerlukan data interaksi pengguna.
-    - Memberikan rekomendasi berdasarkan preferensi pengguna yang sudah diketahui.
-
+  - Mudah diimplementasikan
+  - Tidak membutuhkan data pengguna
+  - Bisa digunakan langsung meskipun pengguna baru (cold start friendly)
 - Kekurangan:
-    - Terbatas hanya pada item yang sudah diketahui preferensinya. Tidak dapat memberikan rekomendasi item baru (cold start problem).
-    - Tidak mempertimbangkan interaksi pengguna dengan item lain yang dapat memberikan perspektif tambahan.
-
-    ***Output***
-   ![Capture](https://github.com/user-attachments/assets/da658803-7498-4bd6-9858-098ef6fdcd1f)
+  - Rekomendasi kurang bervariasi
+  - Hanya menyarankan yang "mirip", tanpa kejutan atau eksplorasi baru
+  - Tidak belajar dari pola pengguna lain
 
 2. Collaborative Filtering
 - Proses:
 Menggunakan pendekatan Neural Collaborative Filtering (NCF) yang dikembangkan menggunakan RecommenderNet. Metode ini mengandalkan embedding untuk memetakan pengguna dan tempat wisata ke dalam ruang vektor laten, dengan pembelajaran dilakukan berdasarkan interaksi pengguna dan tempat wisata.
 
-- Model Arsitektur:
-Model dibangun dengan layer embedding untuk pengguna dan tempat wisata, ditambah bias pada masing-masing layer. Hasil embedding dan bias digabungkan menggunakan operasi dot product dan fungsi aktivasi sigmoid.
+- Struktur Model:
+```python
+class RecommenderNet(tf.keras.Model):
+
+    def __init__(self, num_users, num_place, embedding_size, **kwargs):
+        ...
+   ```
+- Komponen utama:
+1. user_embedding – memetakan user ID ke vektor embedding berdimensi tertentu
+2. place_embedding – memetakan place ID ke vektor embedding
+3. user_bias dan place_bias – untuk mengatasi bias pengguna dan tempat
+4. dot_user_place – menghitung kemiripan antara user dan place melalui dot product
+5. Activation: Fungsi sigmoid digunakan untuk mengubah output menjadi nilai probabilistik antara 0 dan 1.
+   
+- Training Model
+Model dilatih dengan parameter berikut:
+```python
+model.compile(
+    loss = tf.keras.losses.BinaryCrossentropy(),
+    optimizer = keras.optimizers.Adam(learning_rate=0.001),
+    metrics=[tf.keras.metrics.RootMeanSquaredError()]
+)
+
+history = model.fit(
+    x = x_train,
+    y = y_train,
+    batch_size = 8,
+    epochs = 100,
+    validation_data = (x_val, y_val),
+)
+   ```
+Penjelasan Data
+- x_train berisi pasangan [user_id, place_id]
+- y_train berisi rating atau interaksi (misalnya 1 jika dikunjungi atau disukai, 0 jika tidak)
+- Model belajar untuk memprediksi kemungkinan pengguna akan menyukai suatu tempat wisata
+
+Hasil Training : <br>
+![16](https://github.com/user-attachments/assets/a35b517c-61c4-484d-a996-ae1859dfed44)
 
 - Kelebihan:
-    - Memberikan rekomendasi berdasarkan pola interaksi antar pengguna dan tempat wisata.
-    - Lebih fleksibel dan dapat menangani cold start problem dengan lebih baik, terutama jika ada data pengguna yang cukup.
+  - Menyediakan rekomendasi yang personal
+  - Dapat menemukan hubungan yang tidak terlihat antar tempat wisata
+  - Rekomendasi lebih akurat seiring bertambahnya data
 
 - Kekurangan:
-    - Memerlukan data interaksi pengguna yang banyak untuk memberikan rekomendasi yang akurat.
-    - Dapat menjadi kurang efektif jika data interaksi pengguna sangat sedikit atau tidak beragam.
-
- Output <br>
-    ![sss](https://github.com/user-attachments/assets/d1dac8de-08e1-4f5d-b026-77a055a79acf)
+  - Membutuhkan banyak data historis
+  - Cold Start Problem: sulit merekomendasikan untuk user baru atau tempat baru
+  - Lebih kompleks dan butuh waktu pelatihan
 
 
 ## Evaluation
