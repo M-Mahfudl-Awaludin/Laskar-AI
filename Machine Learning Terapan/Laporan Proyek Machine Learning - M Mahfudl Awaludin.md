@@ -2,9 +2,29 @@
 
 ## Project Overview
 
-Proyek ini bertujuan untuk membangun sistem rekomendasi berbasis machine learning untuk destinasi wisata di Indonesia. Sistem rekomendasi ini akan memanfaatkan data pengguna, penilaian tempat wisata, dan informasi tempat wisata untuk memberikan rekomendasi yang lebih personal kepada pengguna.
+Pariwisata merupakan salah satu sektor utama pendorong perekonomian Indonesia, menyumbang devisa negara yang signifikan dan menciptakan lapangan kerja bagi masyarakat. Seiring berkembangnya teknologi informasi, digitalisasi dalam industri pariwisata semakin menjadi kebutuhan, terutama dalam hal personalisasi layanan bagi wisatawan. Salah satu pendekatan yang semakin banyak digunakan dalam sektor ini adalah penerapan sistem rekomendasi (recommendation system) untuk mempermudah wisatawan dalam menemukan destinasi wisata yang sesuai dengan preferensi mereka.
 
-Pentingnya Proyek: Industri pariwisata, khususnya di Indonesia, terus berkembang pesat, dan sistem rekomendasi dapat meningkatkan pengalaman pengguna dalam menemukan tempat wisata yang sesuai dengan preferensi mereka. Proyek ini penting karena dapat membantu wisatawan menemukan destinasi wisata yang relevan berdasarkan kesamaan minat dan anggaran mereka.
+Dalam konteks Indonesia yang memiliki ribuan destinasi wisata dengan karakteristik dan daya tarik yang sangat beragam, sistem rekomendasi menjadi alat yang sangat penting untuk meningkatkan pengalaman pengguna, mempercepat proses perencanaan perjalanan, dan mendorong pemerataan kunjungan ke berbagai daerah, termasuk destinasi yang kurang populer.
+
+Proyek ini bertujuan untuk mengembangkan dua jenis sistem rekomendasi:
+1. Content-Based Filtering, yaitu sistem yang merekomendasikan destinasi wisata berdasarkan kemiripan fitur destinasi dengan destinasi yang sebelumnya disukai oleh pengguna.<br>
+2. Collaborative Filtering, yaitu sistem yang memanfaatkan preferensi pengguna lain yang memiliki kesamaan selera untuk memberikan rekomendasi yang relevan.
+
+Kedua pendekatan ini dipilih untuk saling melengkapi, sehingga sistem yang dikembangkan dapat memberikan hasil rekomendasi yang lebih akurat dan bervariasi.
+
+**Mengapa Proyek Ini Penting untuk Diselesaikan**<br>
+Pengembangan sistem rekomendasi dalam sektor pariwisata sangat penting karena dapat membantu wisatawan menemukan destinasi yang sesuai dengan preferensi mereka secara lebih cepat dan efisien, sekaligus meningkatkan pengalaman perjalanan yang lebih personal dan memuaskan. Di era digital saat ini, wisatawan cenderung mencari informasi melalui platform daring, dan mereka semakin mengandalkan teknologi untuk mendukung pengambilan keputusan, termasuk saat memilih tujuan wisata.
+
+Studi oleh Gretzel et al. (2015) menunjukkan bahwa personalized recommendation systems dapat meningkatkan kepuasan wisatawan dan membantu mereka mengeksplorasi destinasi yang belum populer namun memiliki potensi tinggi. Sistem semacam ini juga berkontribusi pada distribusi arus kunjungan yang lebih merata ke berbagai daerah, mengurangi overtourism di destinasi yang sudah jenuh, dan membantu mendorong pertumbuhan ekonomi daerah lain yang kurang terekspos.
+
+Selain itu, menurut Ricci, Rokach, & Shapira (2011), sistem rekomendasi telah menjadi komponen penting dalam aplikasi pariwisata modern karena mampu memproses preferensi individu dan memberikan rekomendasi yang lebih relevan dibandingkan pencarian manual atau umum.
+
+Proyek ini juga menjadi signifikan dalam konteks Indonesia, yang memiliki karakteristik geografis dan budaya yang sangat beragam. Dengan banyaknya pilihan destinasi, wisatawan lokal maupun mancanegara sering kali mengalami kesulitan dalam memilih destinasi yang sesuai dengan minat mereka. Sistem rekomendasi berbasis konten dan kolaboratif dapat mengatasi tantangan ini, dengan memberikan rekomendasi yang disesuaikan dan berbasis data, sehingga berdampak pada peningkatan jumlah kunjungan serta memperkuat citra pariwisata Indonesia di mata dunia.
+
+**Referensi**<br>
+- Prabowo, A. (2021). Indonesia Tourism Destination Dataset. Kaggle. Diakses dari: https://www.kaggle.com/datasets/aprabowo/indonesia-tourism-destination
+- Gretzel, U., Werthner, H., Koo, C., & Lamsfus, C. (2015). Conceptual foundations for understanding smart tourism ecosystems. Computers in Human Behavior, 50, 558–563.
+- Ricci, F., Rokach, L., & Shapira, B. (2011). Introduction to Recommender Systems Handbook. Springer.
 
 ***Referensi***
 - Laporan: "Rekomendasi Tempat Wisata dengan Algoritma Content-Based Filtering" (Jurnal Informatika, 2022).
