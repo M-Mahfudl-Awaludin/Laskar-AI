@@ -220,7 +220,8 @@ ada bagian ini, langkah-langkah yang diambil untuk mempersiapkan data sebelum di
 - Alasan: Untuk memudahkan pencarian tempat wisata yang mirip. 
 - output :
 
-![13](https://github.com/user-attachments/assets/7688edf0-9775-45a2-97e6-595369cc9f15)
+![asfxcxcc](https://github.com/user-attachments/assets/e5ae2fea-dfc7-4133-8d1f-ae80f77d8e41)
+
 
 **Collaborative Filtering**
 12. Menyiapkan Data Rating
@@ -253,21 +254,44 @@ Pada tahap modeling, dua pendekatan yang berbeda digunakan untuk membangun siste
 
 1. Content-Based Filtering
 - Proses:
-Menggunakan fitur-fitur tekstual seperti kategori tempat wisata dan deskripsi untuk menentukan kesamaan antar tempat wisata. Model ini memanfaatkan TF-IDF Vectorizer untuk memetakan teks menjadi vektor, kemudian menghitung kemiripan antar tempat wisata menggunakan Cosine Similarity.
-Fungsi yang digunakan adalah:
+Proses:
+Fungsi recommend_place digunakan untuk memberikan rekomendasi tempat wisata berdasarkan nama tempat yang dimasukkan oleh pengguna. Fungsi ini memanfaatkan cosine similarity yang telah dihitung sebelumnya pada matriks kesamaan antar tempat wisata, untuk menemukan tempat-tempat yang paling mirip dengan tempat yang dipilih oleh pengguna.
+
+Berikut adalah penjelasan lebih rinci mengenai fungsi yang digunakan:
 ```python
-def generate_candidates(city=None, max_price=None, items=data[['Place_Id', 'Place_Name', 'Category', 'Description', 'City', 'Price']]):
-    filtered_items = items
-    if city:
-        filtered_items = filtered_items[filtered_items['City'] == city]
-    if max_price:
-        filtered_items = filtered_items[filtered_items['Price'] <= max_price]
-    return filtered_items
+def recommend_place(input_name, similarity_df, top_n=5):
+    # Cari nama tempat yang cocok sebagian
+    matches = [name for name in similarity_df.columns if input_name.lower() in name.lower()]
+    
+    if not matches:
+        raise ValueError(f"Tidak ditemukan tempat dengan nama yang mengandung '{input_name}'")
+
+    # Ambil tempat pertama yang cocok
+    place_name = matches[0]
+
+    # Ambil skor similarity (pastikan bentuknya Series)
+    similarity_scores = similarity_df[place_name]
+
+    # Jika lebih dari 1 kolom dengan nama sama (duplikat), ambil kolom pertama saja
+    if isinstance(similarity_scores, pd.DataFrame):
+        similarity_scores = similarity_scores.iloc[:, 0]
+
+    # Hapus dirinya sendiri dari daftar
+    similarity_scores = similarity_scores.drop(labels=[place_name])
+
+    # Urutkan descending dan ambil top_n
+    top_recommendations = similarity_scores.sort_values(ascending=False).head(top_n)
+
+    return top_recommendations
    ```
 - Cara Kerja
-  - Pengguna memasukkan filter seperti lokasi (kota) dan/atau harga maksimum.
-  - Sistem akan menyaring tempat wisata berdasarkan dua parameter tersebut.
-  - Output-nya berupa daftar tempat wisata sesuai filter, yang bisa ditampilkan sebagai Top-N (misalnya Top-5 tempat teratas).
+1. Pencarian Nama Tempat yang Mirip: Fungsi ini pertama-tama akan mencari nama tempat yang cocok dengan kata kunci input_name yang dimasukkan oleh pengguna. Proses ini tidak sensitif terhadap huruf besar/kecil dan memungkinkan pencarian nama tempat yang mengandung sebagian kata dari input pengguna.
+2. Ambil Tempat yang Pertama Ditemukan: Setelah menemukan nama tempat yang cocok, fungsi ini akan memilih tempat pertama yang ditemukan sebagai nama tempat yang digunakan untuk rekomendasi.
+3. Ambil Skor Cosine Similarity: Kemudian, fungsi akan mengambil nilai cosine similarity untuk tempat yang ditemukan terhadap semua tempat lainnya dalam data. Skor similarity ini menunjukkan seberapa mirip tempat tersebut dengan tempat lainnya.
+4. Penanganan Duplikasi Kolom: Dalam beberapa kasus, ada kemungkinan nama tempat yang sama muncul di lebih dari satu kolom (misalnya jika ada duplikat data). Oleh karena itu, fungsi ini akan memastikan bahwa hanya kolom pertama yang digunakan untuk skor similarity.
+5. Menghapus Tempat Itu Sendiri dari Daftar: Skor similarity untuk tempat yang sama dengan input pengguna (tempat itu sendiri) dihapus untuk memastikan rekomendasi tidak mencakup tempat yang sedang dicari oleh pengguna.
+6. Menyortir dan Menampilkan Top-N Rekomendasi: Skor similarity akan diurutkan secara menurun (descending) untuk mencari tempat dengan kesamaan tertinggi. Fungsi ini kemudian memilih top_n tempat yang paling mirip dengan tempat yang dipilih.
+
 - Kelebihan:
   - Mudah diimplementasikan
   - Tidak membutuhkan data pengguna
@@ -276,6 +300,20 @@ def generate_candidates(city=None, max_price=None, items=data[['Place_Id', 'Plac
   - Rekomendasi kurang bervariasi
   - Hanya menyarankan yang "mirip", tanpa kejutan atau eksplorasi baru
   - Tidak belajar dari pola pengguna lain
+
+**Testing Model**
+```python
+recommendation = recommend_place("Alive Museum Ancol", cosine_sim_df, top_n=5)
+print("Rekomendasi Tempat Wisata Serupa:")
+print(recommendation)
+   ```
+Deskripsi: Pada kode ini, fungsi recommend_place digunakan untuk memberikan rekomendasi tempat wisata yang mirip dengan tempat yang dicari oleh pengguna, dalam hal ini "Alive Museum Ancol". Fungsi ini mencari tempat wisata yang memiliki kesamaan nama dengan input pengguna dalam cosine similarity matrix (cosine_sim_df), kemudian mengurutkan tempat-tempat tersebut berdasarkan tingkat kesamaannya. Hasilnya adalah lima tempat wisata teratas yang paling mirip dengan "Alive Museum Ancol". Hasil rekomendasi ini kemudian dicetak untuk ditampilkan kepada pengguna.
+
+
+Output : <br>
+
+![jgkjhk](https://github.com/user-attachments/assets/d06ec4f5-3a44-4a4e-9ba9-ba3bb43ad198)
+
 
 2. Collaborative Filtering
 - Proses:
@@ -329,6 +367,47 @@ Hasil Training : <br>
   - Membutuhkan banyak data historis
   - Cold Start Problem: sulit merekomendasikan untuk user baru atau tempat baru
   - Lebih kompleks dan butuh waktu pelatihan
+
+### Testing Model
+Untuk pengujian Collaborative Filtering, pendekatan yang digunakan melibatkan model prediktif berdasarkan interaksi pengguna dengan tempat wisata. Model ini memprediksi rating untuk tempat yang belum dikunjungi berdasarkan pola rating pengguna lain yang mirip.
+
+Langkah-Langkah:
+1. Mengambil Data Acak Pengguna:
+```python
+user_id = df.User_Id.sample(1).iloc[0]
+place_visited_by_user = df[df.User_Id == user_id]
+   ```
+2. Menentukan Tempat yang Belum Dikunjungi: Tempat wisata yang belum dikunjungi oleh pengguna dipilih dari dataframe place_df dengan menyaring berdasarkan Place_Id.
+3. Encoding dan Prediksi Rating: Tempat-tempat tersebut diencoding lalu dikombinasikan dengan ID pengguna, kemudian diprediksi ratingnya oleh model:
+```python
+top_ratings_indices = ratings.argsort()[-10:][::-1]
+recommended_place_ids = [
+    place_encoded_to_place.get(place_not_visited[x][0]) for x in top_ratings_indices
+]
+   ```   
+4. Menampilkan Rekomendasi Terbaik:
+```python
+ratings = model.predict(user_place_array).flatten()
+   ```
+Rekomendasi ditentukan berdasarkan top 10 tempat dengan prediksi rating tertinggi.
+5. Visualisasi dan Verifikasi: Ditampilkan juga tempat-tempat yang sudah pernah dikunjungi dengan rating tertinggi untuk memverifikasi kesesuaian rekomendasi:
+```python
+top_place_user = (
+    place_visited_by_user.sort_values(
+        by = 'Place_Ratings',
+        ascending=False
+    )
+    .head(5)
+    .Place_Id.values
+)
+
+place_df_rows = place_df[place_df['Place_Id'].isin(top_place_user)]
+pd.DataFrame(place_df_rows)
+   ```
+
+Output : 
+
+![24](https://github.com/user-attachments/assets/b3b381d1-499c-40c8-ac9c-618569da0b1c)
 
 
 ## Evaluation
@@ -414,64 +493,6 @@ Kesimpulan untuk Collaborative Filtering: Model Collaborative Filtering bekerja 
 - Content-Based Filtering memiliki hasil yang lebih rendah karena model ini hanya bergantung pada konten dan fitur yang ada pada tempat-tempat wisata. Dengan demikian, model ini mungkin gagal menangkap keinginan pengguna yang lebih spesifik atau tidak dapat menemukan tempat yang cukup relevan untuk direkomendasikan.
 - Collaborative Filtering, di sisi lain, berfungsi lebih baik karena memanfaatkan interaksi pengguna lain (misalnya, rating atau preferensi dari pengguna serupa), yang sering kali menghasilkan rekomendasi yang lebih akurat. Ini bisa sangat efektif dalam kasus di mana preferensi pengguna tidak sepenuhnya dapat dipahami hanya dari konten.
 
-### Testing Model
-1. Content-Based Filtering
-Untuk menguji sistem rekomendasi berbasis Content-Based Filtering, digunakan fungsi generate_candidates() yang menerima parameter seperti kota dan harga maksimum. Fungsi ini bertujuan menghasilkan daftar tempat wisata yang relevan berdasarkan atribut kesukaan pengguna sebelumnya, seperti lokasi dan kisaran harga.
-```python
-# Generate kandidat rekomendasi wisata di Bandung dengan harga maksimal Rp100.000
-generate_candidates(city="Bandung", max_price=100000).head(5)
-
-# Generate kandidat rekomendasi wisata di Surabaya dengan harga maksimal Rp110.000
-generate_candidates("Surabaya", 110000).head(5)
-   ```
-Deskripsi: Fungsi ini mengeliminasi tempat-tempat wisata yang tidak memenuhi kriteria pengguna, lalu mengurutkan dan menampilkan 5 tempat teratas berdasarkan kesamaan fitur. Hal ini membantu pengguna menemukan wisata serupa dari preferensi sebelumnya, meski belum pernah dikunjungi.
-
-Output : <br>
-
-![22](https://github.com/user-attachments/assets/f9b38246-7d2c-4f6a-96fb-1337f3857463)<br>
-
-![23](https://github.com/user-attachments/assets/d8c267e0-47b1-4ec9-bf60-11496877cdf2)
-
-2. Collaborative Filtering
-Untuk pengujian Collaborative Filtering, pendekatan yang digunakan melibatkan model prediktif berdasarkan interaksi pengguna dengan tempat wisata. Model ini memprediksi rating untuk tempat yang belum dikunjungi berdasarkan pola rating pengguna lain yang mirip.
-
-Langkah-Langkah:
-1. Mengambil Data Acak Pengguna:
-```python
-user_id = df.User_Id.sample(1).iloc[0]
-place_visited_by_user = df[df.User_Id == user_id]
-   ```
-2. Menentukan Tempat yang Belum Dikunjungi: Tempat wisata yang belum dikunjungi oleh pengguna dipilih dari dataframe place_df dengan menyaring berdasarkan Place_Id.
-3. Encoding dan Prediksi Rating: Tempat-tempat tersebut diencoding lalu dikombinasikan dengan ID pengguna, kemudian diprediksi ratingnya oleh model:
-```python
-top_ratings_indices = ratings.argsort()[-10:][::-1]
-recommended_place_ids = [
-    place_encoded_to_place.get(place_not_visited[x][0]) for x in top_ratings_indices
-]
-   ```   
-4. Menampilkan Rekomendasi Terbaik:
-```python
-ratings = model.predict(user_place_array).flatten()
-   ```
-Rekomendasi ditentukan berdasarkan top 10 tempat dengan prediksi rating tertinggi.
-5. Visualisasi dan Verifikasi: Ditampilkan juga tempat-tempat yang sudah pernah dikunjungi dengan rating tertinggi untuk memverifikasi kesesuaian rekomendasi:
-```python
-top_place_user = (
-    place_visited_by_user.sort_values(
-        by = 'Place_Ratings',
-        ascending=False
-    )
-    .head(5)
-    .Place_Id.values
-)
-
-place_df_rows = place_df[place_df['Place_Id'].isin(top_place_user)]
-pd.DataFrame(place_df_rows)
-   ```
-
-Output : 
-
-![24](https://github.com/user-attachments/assets/b3b381d1-499c-40c8-ac9c-618569da0b1c)
 
 
 ---Ini adalah bagian akhir laporan---
