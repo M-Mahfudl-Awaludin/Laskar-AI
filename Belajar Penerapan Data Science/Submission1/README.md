@@ -24,7 +24,7 @@ Tingginya angka attrition ini dapat menyebabkan kerugian besar bagi perusahaan, 
 Sumber Data:
 Data Asli : [Jaya Jaya Maju](https://github.com/dicodingacademy/dicoding_dataset/tree/main/employee).
 
-Dataset yang telah dibersihkan: employee_cleaned_data.csv (berisi data demografi, informasi pekerjaan, dan status attrition karyawan).
+Dataset yang telah dibersihkan: [employee_cleaned_data.csv](https://github.com/M-Mahfudl-Awaludin/Laskar-AI/blob/a61ead7411dc4cfbab560964e231b40e10257303/Belajar%20Penerapan%20Data%20Science/Submission1/dataset/employee_cleaned_data.csv)
 
 Setup Environment:
 
