@@ -26,16 +26,49 @@ Data Asli : [Jaya Jaya Maju](https://github.com/dicodingacademy/dicoding_dataset
 
 Dataset yang telah dibersihkan: [employee_cleaned_data.csv](https://github.com/M-Mahfudl-Awaludin/Laskar-AI/blob/a61ead7411dc4cfbab560964e231b40e10257303/Belajar%20Penerapan%20Data%20Science/Submission1/dataset/employee_cleaned_data.csv)
 
-Setup Environment:
+### Setup Environment:
+1. Persyaratan Sistem
+- Python 3.7+
+- PIP (Python Package Manager)
+- Jupyter Notebook / JupyterLab / Google Colab
+- IDE seperti VSCode (opsional)
+2. 2. Installasi Dependensi
+Pastikan sudah berada di direktori project.
+- Buat Virtual Environment (Opsional tapi direkomendasikan)
+```
+python -m venv venv
+source venv/bin/activate        # Linux / Mac
+venv\Scripts\activate           # Windows
+```
+- Install Dependensi
+```
+pip install -r requirements.txt
+```
 
-- Bahasa pemrograman: Python
+Jika belum ada file requirements.txt, kamu bisa install manual:
+```
+pip install pandas matplotlib seaborn numpy jupyter
+```
+3. Struktur Direktori
+```
+├── notebook.ipynb         <- File utama berisi analisis
+├── dataset.csv            <- Dataset (jika terpisah)
+├── requirements.txt       <- Daftar dependensi
+└── README.md              <- Petunjuk ini
+```
 
-- Library: pandas, sklearn, matplotlib, seaborn, joblib
+4. Menjalankan Notebook
+```
+jupyter notebook
+```
+Setelah itu, buka file notebook.ipynb dari Jupyter interface.
 
-- Alat visualisasi: Google Looker Studio
+**Alternatif: Jalankan di Google Colab**
+1. Buka Google Colab
+2. Upload file notebook.ipynb
+3. Jalankan seluruh cell
 
-- Tools pendukung: Google Colab untuk eksplorasi data dan pembuatan model
-
+Untuk mengakses Dashboard Business : [Dashboard](https://lookerstudio.google.com/reporting/6397db59-743d-444e-8fd5-505799193efd)
 
 ## Business Dashboard
 
@@ -45,6 +78,11 @@ Dashboard yang dibuat menggunakan Google Looker Studio bertujuan untuk menampilk
 - Attrition rate (%) secara keseluruhan
 - Distribusi attrition berdasarkan departemen, usia, gender, status lembur (OverTime), job satisfaction, dll.
 - Komparasi attrition berdasarkan faktor-faktor risiko
+
+Visualisasi :
+
+![m_mahfudl_awaludin_ztNf-dashboard](https://github.com/user-attachments/assets/3c8ad559-010d-41da-8845-07ff8905896f)
+
 
 📊 Link Dashboard : [Dashboard](https://lookerstudio.google.com/reporting/6397db59-743d-444e-8fd5-505799193efd)
 
