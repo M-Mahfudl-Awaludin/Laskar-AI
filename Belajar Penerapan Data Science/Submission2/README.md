@@ -2,29 +2,28 @@
 
 ## Business Understanding
 
-Jaya Jaya Maju adalah sebuah perusahaan multinasional yang telah berdiri sejak tahun 2000 dan mempekerjakan lebih dari 1000 karyawan yang tersebar di seluruh Indonesia. Walaupun telah menjadi perusahaan besar, Jaya Jaya Maju menghadapi tantangan dalam mengelola karyawannya secara efisien. Hal ini terlihat dari tingginya tingkat attrition (turnover) karyawan, yang telah mencapai lebih dari 10% dari total keseluruhan tenaga kerja.
+Jaya Jaya Institut adalah sebuah institusi pendidikan perguruan tinggi yang telah berdiri sejak tahun 2000. Dengan reputasi yang sangat baik, Jaya Jaya Institut telah mencetak banyak lulusan yang sukses. Namun, salah satu masalah besar yang dihadapi institusi ini adalah tingginya tingkat dropout atau ketidakselesaian pendidikan oleh sejumlah mahasiswa.
 
-Tingginya angka attrition ini dapat menyebabkan kerugian besar bagi perusahaan, seperti meningkatnya biaya rekrutmen, pelatihan, penurunan produktivitas, serta kehilangan pengetahuan dan pengalaman yang berharga. Oleh karena itu, perusahaan ingin memahami penyebab utama dari tingginya attrition rate dan memantau faktor-faktor risiko tersebut secara real-time melalui dashboard bisnis.
+Angka dropout yang tinggi ini berdampak negatif terhadap citra institusi dan sumber daya yang telah dikeluarkan. Oleh karena itu, Jaya Jaya Institut ingin mengidentifikasi mahasiswa yang berisiko tinggi untuk drop out sedini mungkin, sehingga mereka dapat diberikan bimbingan atau intervensi yang lebih awal untuk meningkatkan kemungkinan mereka menyelesaikan studi.
 
 ### Permasalahan Bisnis
 
-- Tingginya attrition rate yang berdampak negatif terhadap kinerja dan stabilitas perusahaan.
-- Tidak adanya sistem monitoring yang terintegrasi untuk mengidentifikasi potensi penyebab attrition.
-- Kurangnya pemahaman terhadap pola atau variabel-variabel penting yang memicu karyawan keluar dari perusahaan.
-- Belum adanya model prediksi yang bisa digunakan HR untuk mengidentifikasi risiko turnover.
+- Tingginya angka dropout yang merugikan reputasi dan stabilitas institusi.
+- Tidak adanya sistem yang dapat memprediksi mahasiswa yang berisiko drop out.
+- Kurangnya informasi atau pemahaman tentang variabel-variabel yang mempengaruhi keputusan mahasiswa untuk berhenti kuliah.
 
 ### Cakupan Proyek
 
-- Melakukan eksplorasi dan analisis data karyawan yang telah disediakan perusahaan.
-- Membuat model machine learning sederhana untuk memprediksi kemungkinan seorang karyawan akan keluar dari perusahaan.
-- Mengembangkan business dashboard interaktif menggunakan Google Looker Studio untuk memantau metrik-metrik penting terkait attrition.
-- Memberikan rekomendasi kebijakan strategis berdasarkan hasil analisis dan visualisasi.
+- Melakukan eksplorasi dan analisis data yang diberikan oleh Jaya Jaya Institut mengenai mahasiswa.
+- Membangun model machine learning untuk memprediksi status mahasiswa apakah berisiko dropout atau tidak.
+- Mengembangkan dashboard bisnis interaktif menggunakan Google Looker Studio untuk memvisualisasikan faktor-faktor yang mempengaruhi kemungkinan mahasiswa dropout.
+- Memberikan rekomendasi kepada pihak institusi mengenai tindakan yang bisa diambil berdasarkan hasil analisis dan visualisasi.
 
 ### Persiapan
 Sumber Data:
-Data Asli : [Jaya Jaya Maju](https://github.com/dicodingacademy/dicoding_dataset/tree/main/employee).
+Data Asli : [students' performance]([https://github.com/dicodingacademy/dicoding_dataset/tree/main/employee](https://github.com/dicodingacademy/dicoding_dataset/blob/main/students_performance/README.md)).
 
-Dataset yang telah dibersihkan: [employee_cleaned_data.csv](https://github.com/M-Mahfudl-Awaludin/Laskar-AI/blob/a61ead7411dc4cfbab560964e231b40e10257303/Belajar%20Penerapan%20Data%20Science/Submission1/dataset/employee_cleaned_data.csv)
+Dataset yang telah dibersihkan: [data_clean.csv](https://github.com/M-Mahfudl-Awaludin/Laskar-AI/blob/a57ab5fe6f4eb7e33f1821e3532ed4a9128c0ab4/Belajar%20Penerapan%20Data%20Science/Submission2/data/data_clean.xlsx)
 
 ### Setup Environment:
 1. Persyaratan Sistem
@@ -68,7 +67,9 @@ Setelah itu, buka file notebook.ipynb dari Jupyter interface.
 2. Upload file notebook.ipynb
 3. Jalankan seluruh cell
 
-Untuk mengakses Dashboard Business : [Dashboard](https://lookerstudio.google.com/reporting/6397db59-743d-444e-8fd5-505799193efd)
+Untuk mengakses Dashboard Business : [Dashboard](https://lookerstudio.google.com/reporting/8be8c7b8-501d-4148-936b-396f2c27bc7a)
+
+Untuk mengakses Solusi Machine Learning : [Status Mahasiswa App](https://laskar-ai-quzymd6tgksk5jincbdd8w.streamlit.app/)
 
 ## Business Dashboard
 
